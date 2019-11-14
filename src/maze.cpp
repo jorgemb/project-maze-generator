@@ -48,17 +48,15 @@ Maze::Maze(int rows, int columns, long long int seed) : mRows(rows), mCols(colum
         auto first_set = std::find_if(mRoomSets.begin(), mRoomSets.end(), [first](const std::set<int>& set){
             return set.find(first) != set.end();
         });
-        std::set<int> A(*first_set);
         auto second_set = std::find_if(mRoomSets.begin(), mRoomSets.end(), [second](const std::set<int>& set){
             return set.find(second) != set.end();
         });
-        std::set<int> B(*second_set);
 
         // Check if wall can be deleted. This means that the second element is not in the same set.
         if (first_set->find(second) == first_set->end()) {
             // Merge sets and delete the second
             first_set->insert(second_set->begin(), second_set->end());
-            second_set->clear();
+            mRoomSets.erase(second_set);
 
             // Delete wall
             wall_iter = mWallsUp.erase(wall_iter);

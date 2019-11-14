@@ -47,12 +47,9 @@ include_directories(
 
 
 # Input library
-set(INPUTLIB_SOURCES src/input.cpp include/input/input.hpp)
-add_library(inputlib ${INPUTLIB_SOURCES})
-
 add_executable(inputlib_test tests/inputlib_tests.cpp)
-target_link_libraries(inputlib_test inputlib gtest_main)
+target_link_libraries(inputlib_test gtest_main)
 add_test(NAME Test_InputLib COMMAND inputlib_test)
 
 # Main executable
-add_executable(Main main.cpp)
+add_executable(MazeGenerator main.cpp)

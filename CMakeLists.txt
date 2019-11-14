@@ -40,5 +40,19 @@ endif()
 #target_link_libraries(example gtest_main)
 #add_test(NAME example_test COMMAND example)
 
+# Include directories
+include_directories(
+        include/
+)
 
+
+# Input library
+set(INPUTLIB_SOURCES src/input.cpp include/input/input.hpp)
+add_library(inputlib ${INPUTLIB_SOURCES})
+
+add_executable(inputlib_test tests/inputlib_tests.cpp)
+target_link_libraries(inputlib_test inputlib gtest_main)
+add_test(NAME Test_InputLib COMMAND inputlib_test)
+
+# Main executable
 add_executable(Main main.cpp)

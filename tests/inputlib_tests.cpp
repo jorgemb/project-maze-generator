@@ -24,8 +24,8 @@ protected:
         output_stream = make_shared<stringstream>();
 
         // Initialize input class
-        Input::set_input(input_stream);
-        Input::set_output(output_stream);
+        input::set_input(input_stream);
+        input::set_output(output_stream);
     }
 
     shared_ptr<stringstream> input_stream;
@@ -35,7 +35,7 @@ protected:
 TEST_F(InputTest, BasicInput) {
     int value = 45;
     *input_stream << 45;
-    int response = Input::prompt<int>("Enter a number");
+    int response = input::prompt<int>("Enter a number");
 
     ASSERT_EQ(value, response) << "Inserted a value.";
 }
@@ -50,10 +50,10 @@ TEST_F(InputTest, VariousInput) {
     *input_stream << int_value << char_value << double_value << string_value;
 
     // Read values
-    EXPECT_EQ(Input::prompt<int>(""), int_value);
-    EXPECT_EQ(Input::prompt<char>(""), char_value);
-    EXPECT_EQ(Input::prompt<double>(""), double_value);
-    EXPECT_EQ(Input::prompt<string>(""), string_value);
+    EXPECT_EQ(input::prompt<int>(""), int_value);
+    EXPECT_EQ(input::prompt<char>(""), char_value);
+    EXPECT_EQ(input::prompt<double>(""), double_value);
+    EXPECT_EQ(input::prompt<string>(""), string_value);
 }
 
 TEST_F(InputTest, OutputTest) {
@@ -61,15 +61,15 @@ TEST_F(InputTest, OutputTest) {
     string response = "This is a response";
 
     *input_stream << response;
-    EXPECT_EQ(Input::prompt<string>(message), response) << "Input message does not match.";
+    EXPECT_EQ(input::prompt<string>(message), response) << "Input message does not match.";
     EXPECT_EQ(output_stream->str(), message) << "Output message does not match.";
 }
 
 TEST_F(InputTest, InvalidTest) {
     int value = 50;
-    *input_stream << "Invalid" << std::endl << "value" << std::endl << value;
+    *input_stream << "Invalid" << std::endl << "value" << std::endl << 100 << std::endl << value;
 
-    EXPECT_EQ(Input::prompt_range<int>("", 10, 70, true), value) << "Should get final value.";
+    EXPECT_EQ(input::prompt_range<int>("", 10, 70, true), value) << "Should get final value.";
 
     string output = output_stream->str();
     EXPECT_TRUE(output.find("Error") != output.npos)

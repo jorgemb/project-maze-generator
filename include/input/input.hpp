@@ -10,7 +10,7 @@
 #include <memory>
 #include <limits>
 
-namespace Input {
+namespace input {
     static std::weak_ptr<std::istream> mInputStream;
     static std::weak_ptr<std::ostream> mOutputStream;
 
@@ -119,7 +119,7 @@ namespace Input {
         *output << message;
         *input >> value;
 
-        while (ask_until_ok && input->fail()) {
+        while (ask_until_ok && ( input->fail() || value < lower_limit || value > upper_limit) ) {
             // If there is an error, try again.
             *output << "Error: Value must be between " << lower_limit << " and " << upper_limit << ". Try again."
                     << std::endl;

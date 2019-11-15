@@ -11,7 +11,7 @@ using input::prompt_range;
 int main() {
     // Welcome message
     std::cout << "Hello, Welcome to the Maze Generator!" << std::endl;
-    std::cout << "This program with generate a randomized 2D Orthogonal Perfect maze." << std::endl;
+    std::cout << "This program will generate a randomized 2D Orthogonal Perfect maze." << std::endl;
 
     // Dummy input for testing
 //    std::shared_ptr<std::stringstream> dummy_input = std::make_shared<std::stringstream>();
